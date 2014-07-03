@@ -1,0 +1,12 @@
+% SatPC32 will respond with the string ** NO SATELLITE ** if the elevation
+% is below 0. This can be fixed, see documenation for DDE in SatPc32. 
+
+
+chan = ddeinit('SatPC32', 'SatPcDdeConv');
+data = ddereq(chan, 'SatPcDdeItem',[1,1]);
+disp(data)
+
+
+
+
+
