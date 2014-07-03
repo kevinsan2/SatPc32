@@ -16,7 +16,7 @@ function []=main()
 %%% Establish communication only once %%%%
 [chan] = satpc32_com();
 % orbit_com(); 
-% yeaseu_com();
+yaseu_com();
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 disp(' Az         El       Satellite');
@@ -37,9 +37,10 @@ disp(' Az         El       Satellite');
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+        
         %%% Elevation section - Arduino/Yaseu %%%
 
-%         yaseu();
+%         yaseu(El);
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
