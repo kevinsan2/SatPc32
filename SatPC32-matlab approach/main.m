@@ -12,10 +12,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function []=main()
+delete(instrfind);
+
+[chan] = satpc32_com();
+[Az, El, Sat] = satpc32(chan);
 
 %%% Establish communication only once %%%%
-[chan] = satpc32_com();
-% orbit_com(); 
+
+sport = orbit_com(Az); 
 %object = yaseu_com();
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -26,10 +30,10 @@ disp(' Az    El_SatPc32   El_Rotor   El_rotor_Mode   Satellite');
         [Az, El, Sat] = satpc32(chan);
 
        
-
+            
         %%% Azimuth section - Orbit %%%%
 
-       % orbit(Az)
+         orbit(Az,sport)
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
