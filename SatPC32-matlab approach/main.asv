@@ -16,32 +16,38 @@ function []=main()
 %%% Establish communication only once %%%%
 [chan] = satpc32_com();
 % orbit_com(); 
- % yeaseu_com();
+%object = yaseu_com();
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-disp(' Az         El       Satellite');
+disp(' Az    El_SatPc32   El_Rotor   El_rotor_Mode   Satellite');
 
     while 1 < 10;
 
         [Az, El, Sat] = satpc32(chan);
 
-        fprintf( '%.4f',Az)
-        fprintf( '  %.4f',El)
-        fprintf( '     %s\n',Sat)
-        pause(1);
-
+       
+            
         %%% Azimuth section - Orbit %%%%
 
-%         orbit(Az);
+       % orbit(Az)
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+        
         %%% Elevation section - Arduino/Yaseu %%%
 
-%         yaseu(E);
+        %  [El_rotor, El_mode] = yaseu(El, object);
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        
+        fprintf( '%.2f',Az)
+        fprintf( '  %.4f',El)
+      %  fprintf( '  %.4f',El_rotor)
+       % fprintf('    %s',El_mode)
+        fprintf( '     %s\n',Sat)
+        pause(1);
+
 
 
     end 

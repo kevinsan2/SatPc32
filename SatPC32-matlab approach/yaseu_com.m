@@ -5,7 +5,7 @@
 %required sketch uploaded to it and that the arduino_install.m has been
 %used once. 
 
-function  [arduino_mode]=yaseu_com();
+function  [a]=yaseu_com();
 
 % Create arduino object and connect to board
     if exist('a','var') && isa(a,'arduino') && isvalid(a),
