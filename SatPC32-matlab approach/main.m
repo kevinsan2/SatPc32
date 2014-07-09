@@ -10,7 +10,6 @@
 %(Right now the arduino code do this but perhaps it is better if we do it in matlab instead). 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 function []=main()
 delete(instrfind);
 
@@ -18,14 +17,15 @@ delete(instrfind);
 [Az, El, Sat] = satpc32(chan);
 
 %%% Establish communication only once %%%%
-
-sport = orbit_com(Az); 
+comPortToArduino = 'COM3';
+[arduinoCom, flag] = arduinoDisplay(comPortToArduino);
+% sport = orbit_com(Az); 
 %object = yaseu_com();
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 disp(' Az    El_SatPc32   El_Rotor   El_rotor_Mode   Satellite');
 
-    while 1 < 10;
+    for i = 1:10
 
         [Az, El, Sat] = satpc32(chan);
 
@@ -33,14 +33,20 @@ disp(' Az    El_SatPc32   El_Rotor   El_rotor_Mode   Satellite');
             
         %%% Azimuth section - Orbit %%%%
 
-         orbit(Az,sport)
+%          orbit(Az,sport)
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
         
         %%% Elevation section - Arduino/Yaseu %%%
-
+        fprintf(arduinoCom, 'e');
+        pause(0.1);
+        fprintf(arduinoCom,num2str(El));
+        pause(0.1);
+        fprintf(arduinoCom, 'a');
+        pause(0.1);
+        fprintf(arduinoCom, num2str(Az));
         %  [El_rotor, El_mode] = yaseu(El, object);
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -55,7 +61,7 @@ disp(' Az    El_SatPc32   El_Rotor   El_rotor_Mode   Satellite');
 
 
     end 
-
+delete(instrfind)
 
 end 
 
