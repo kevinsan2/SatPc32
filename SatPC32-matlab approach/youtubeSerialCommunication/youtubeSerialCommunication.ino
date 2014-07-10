@@ -1,9 +1,11 @@
 int TxPin = 6;
+int upLed = 3;
+int downLed = 9;
 String inputString = ""; // a string to hold incoming data
 boolean stringComplete = false;
 int var = 1;
 #include <SoftwareSerial.h>
-SoftwareSerial mySerial(5,6);
+SoftwareSerial mySerial(5,TxPin);
 void setup()
 {
   Serial.begin(9600);
@@ -11,8 +13,12 @@ void setup()
   //  char a = 'b';
   inputString.reserve(200);
   mySerial.begin(9600);
+  pinMode(upLed, 'OUTPUT');
+  pinMode(downLed,'OUTPUT');
   pinMode(TxPin,'OUTPUT');
-  digitalWrite(TxPin,'HIGH');
+  digitalWrite(upLed, LOW);
+  digitalWrite(downLed, LOW);
+  digitalWrite(TxPin, 'HIGH');
   mySerial.write(22);
   mySerial.write(12);
   //  while (a != 'a')
@@ -27,28 +33,10 @@ void loop()
   // print the string when a newline arrives:
   if (stringComplete)
   {
-    switch (var)
-    {
-    case 1:
-      mySerial.print("El: "); 
-      var++;
-      break;
-    case 2:
-      mySerial.println(inputString); 
-      var++;
-      break; 
-    case 3:
-      mySerial.print("Az: "); 
-      var++;
-      break;
-    case 4:
-      mySerial.println(inputString); 
-      var = 1;
-      break;
-    }
-      // clear the string:
-      inputString = "";
-      stringComplete = false;
+    mySerial.println(inputString); 
+    // clear the string:
+    inputString = "";
+    stringComplete = false;
   }
 }
 
@@ -65,18 +53,56 @@ void serialEvent()
     // get the new byte:
     char inChar = (char)Serial.read(); 
     // add it to the inputString:
-
-    inputString += inChar;
-
-    // if the incoming character is a newline, set a flag
-    // so the main loop can do something about it:
     delay(5);
-    if (inChar == '\n') 
+    switch (inChar)
     {
-      stringComplete = true;
+    case 'e':
+      mySerial.print("El: "); 
+      break;
+    case 'a':
+      mySerial.print("Az: ");
+      break;
+    case 'u':
+      inputString += " up";
+      digitalWrite(downLed, LOW);
+      digitalWrite(upLed, HIGH);
+      break;
+    case 'd':
+      inputString += " down";
+      digitalWrite(upLed, LOW);
+      digitalWrite(downLed, HIGH);
+      break;
+    case 's':
+      inputString += "";
+      digitalWrite(upLed, LOW);
+      digitalWrite(downLed, LOW);
+      break;
+    default:
+      inputString += inChar;
+      // if the incoming character is a newline, set a flag
+      // so the main loop can do something about it:
+      delay(5);
+      if (inChar == '\n') 
+      {
+        stringComplete = true;
+      }
+      break;
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
