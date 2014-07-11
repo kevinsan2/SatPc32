@@ -73,7 +73,7 @@ void serialEvent()
       digitalWrite(downLed, HIGH);
       break;
     case 's':
-      inputString += "";
+      inputString += "        ";
       digitalWrite(upLed, LOW);
       digitalWrite(downLed, LOW);
       break;

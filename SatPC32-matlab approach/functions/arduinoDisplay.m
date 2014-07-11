@@ -20,16 +20,14 @@ fopen(s);
 % fprintf(s,'%c','a');
 mbox = msgbox('Serial Communication setup.');
 uiwait(mbox);
-pause(1); %% needed
 %%
-% fprintf(s,'e');
-% pause(0.1);
-fprintf(s,'e145u');
-pause(1);
-fprintf(s,'a45d');
-pause(1);
-fprintf(s,'e145d');
-pause(1);
-fprintf(s,'a45s');
-%%
-fclose(s);
+% pause(1); %% needed
+% fprintf(s,['e145' 'd']);
+% pause(1);
+% fprintf(s,'a45u');
+% pause(1);
+% fprintf(s,'e13d');
+% pause(.1);
+% fprintf(s,'a45s');
+% %%
+% fclose(s);
