@@ -1,6 +1,8 @@
 function [s, flag] = arduinoDisplay(comPort)
-
-flag = 1;
+if nargin < 1
+    comPort = 'COM15';
+end
+    flag = 1;
 delete(instrfind);
 s = serial(comPort);
 set(s,'DataBits', 8 );
@@ -18,3 +20,14 @@ fopen(s);
 % fprintf(s,'%c','a');
 mbox = msgbox('Serial Communication setup.');
 uiwait(mbox);
+%%
+% pause(1); %% needed
+% fprintf(s,['e145' 'd']);
+% pause(1);
+% fprintf(s,'a45u');
+% pause(1);
+% fprintf(s,'e13d');
+% pause(.1);
+% fprintf(s,'a45s');
+% %%
+% fclose(s);
